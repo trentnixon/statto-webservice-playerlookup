@@ -17,7 +17,7 @@ const query = qs.stringify(
         },
       },
         pagination: {
-            pageSize: 10,
+            pageSize: 25,
           },
           sort: ['updatedAt:asc'],
           fields: ['id','PlayerID', 'updatedAt'],
