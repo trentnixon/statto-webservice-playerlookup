@@ -3,17 +3,24 @@ const dotenv = require("dotenv");
 const qs = require("qs");
 dotenv.config();
 
-/*
- limit: process.env.NODE_ENV === 100, 
-      orderBy: { updatedAt: "asc" }, 
-*/
+
+const today = new Date();
+const yesterday = new Date(today.getTime() - (24 * 60 * 60 * 1000));
+const yesterdayFormatted = yesterday.toISOString();
+
+
 const query = qs.stringify(
     {
+      filters: {
+        updatedAt: {
+          $lt: yesterdayFormatted,
+        },
+      },
         pagination: {
-            pageSize: 1,
+            pageSize: 10,
           },
-          order: ['updatedAt:asc'],
-          fields: ['id','PlayerID'],
+          sort: ['updatedAt:asc'],
+          fields: ['id','PlayerID', 'updatedAt'],
     },
     {
       encodeValuesOnly: true,
@@ -45,6 +52,8 @@ async function fetcher(PATH, method = "GET", body = {}) {
     const response = await fetch(`${APIURL}${PATH}?${query}`,options);
     const res = await response.json();
   
+
+    console.log(' Update Player Count : ', res.data.length)
     return res.data;
   } catch (error) {
     console.log('Fetcher Error : ')

@@ -3,13 +3,6 @@ const fetcher = require("./utils/fetcher");
 
 const Update = async (Players) => {
 
-    //console.log(apiResponse)
-
-  /*   const date = new Date();
-    const daysAgo = new Date(date.getTime());
-    daysAgo.setDate(date.getDate() - 7); */
-
-
     Players.map((player, i) => {
   
     if (player === null) {

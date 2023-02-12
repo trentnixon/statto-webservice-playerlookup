@@ -1,16 +1,25 @@
 const express = require("express");
-const PlayerDetails = require("./FindPlayersToUpdate"); 
+const PlayerDetails = require("./FindPlayersToUpdate");
+const jwt = require("jsonwebtoken");
+
 const app = express();
 
 app.use(express.json());
 
 app.get("/webhook", (req, res) => {
-  console.log("Received a GET request");
- 
-  PlayerDetails.FindPlayers()
-  
-  res.send({ message: "Processing Player Details" });
+  const token = req.headers["x-access-token"];
+  if (!token) {
+    return res.status(401).send({ message: "No token provided" });
+  }
 
+  try {
+    const decoded = jwt.verify(token, process.env.APISECRET);
+    console.log("Received a GET request from Strapi server");
+    PlayerDetails.FindPlayers();
+    res.send({ message: "Processing Player Details" });
+  } catch (error) {
+    return res.status(401).send({ message: "Invalid token" });
+  }
 });
 
 const port = process.env.PORT || 3000;
