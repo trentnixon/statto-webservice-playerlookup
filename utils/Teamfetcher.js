@@ -8,7 +8,6 @@ const today = new Date();
 const threeDaysAgo = new Date(today.getTime() - (0 * 24 * 60 * 60 * 1000));
 const threeDaysAgoFormatted = threeDaysAgo.toISOString();
 
-//fields: ['id','PlayerID', 'updatedAt'],
 const query = qs.stringify(
     {
       filters: {
@@ -51,10 +50,9 @@ async function fetcher(PATH, method = "GET", body = {}) {
     //console.log(`${APIURL}${PATH}`, options)
     const response = await fetch(`${APIURL}${PATH}?${query}`,options);
     const res = await response.json();
-  
 
     console.log(' Update Team Count : ', res.data.length)
-    return res.data;
+    return res.data; 
   } catch (error) {
     console.log('Fetcher Error : ')
     console.error(error);

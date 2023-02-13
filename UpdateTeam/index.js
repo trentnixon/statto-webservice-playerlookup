@@ -33,7 +33,7 @@ function SCRAP() {
     const PATH_TeamProfile = "team-profile/t20/?teamid=";
     const FixtureURL = `${ScrapURL}${PATH_TeamProfile}${TEAM.attributes.TeamID}`;
 
-    //console.log(FixtureURL);
+    console.log("Fetching ", FixtureURL);
 
     //LOG(chalk.yellow(`Fetching Team Metadata ${TEAM.id}`) )
     return await request(FixtureURL, async (err, res, html) => {
