@@ -7,35 +7,8 @@ const Update = async (TEAMS) => {
 
     const UPDATETEAMS = new SCRAP()
       UPDATETEAMS.DATA = TEAMS;
-      //UPDATETEAMS.SWITCHBOARD = Switchboard
-      //UPDATETEAMS.CALLBACK = onComplete
       UPDATETEAMS.StartLookup()
 
-
-
-    //console.log(TEAMS)
-    /* Players.map((player, i) => {
-  
-    if (player === null) {
-      console.log(`Player was NULL and void!!`);
-    } else {
-      //console.log(`Try and update  ${player.Name}`)
-      PlayerCareerUpdate.PlayerCareerUpdate({
-        params: {
-          id: player.id,
-          LMSID: player.attributes.PlayerID,
-        },
-      }).catch((err) => {
-        console.log(
-          "An Error occured on the PlayerCareerUpdate Strapi Query Engine Request :  ",
-          err
-        );
-
-        console.log(player.id);
-        console.log(player.PlayerID);
-      });
-    }
-  });  */
 };
 
 module.exports = {
@@ -45,6 +18,5 @@ module.exports = {
     if(apiResponse > 0){
         Update(apiResponse);
     }
-    
   },
 };
