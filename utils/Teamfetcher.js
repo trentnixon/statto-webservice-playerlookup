@@ -5,7 +5,7 @@ dotenv.config();
 
 
 const today = new Date();
-const threeDaysAgo = new Date(today.getTime() - (0 * 24 * 60 * 60 * 1000));
+const threeDaysAgo = new Date(today.getTime() - (3 * 24 * 60 * 60 * 1000));
 const threeDaysAgoFormatted = threeDaysAgo.toISOString();
 
 const query = qs.stringify(
