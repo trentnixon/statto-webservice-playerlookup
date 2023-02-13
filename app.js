@@ -1,5 +1,6 @@
 const express = require("express");
 const PlayerDetails = require("./FindPlayersToUpdate");
+const FindTeams = require("./FindTeamToUpdate");
 const jwt = require("jsonwebtoken");
 
 const app = express();
@@ -15,8 +16,25 @@ app.get("/webhook", (req, res) => {
   try {
     const decoded = jwt.verify(token, process.env.APISECRET);
     console.log("Received a GET request from Strapi server");
-    //PlayerDetails.FindPlayers();
+    PlayerDetails.FindPlayers();
     res.send({ message: "Processing Player Details" });
+  } catch (error) {
+    return res.status(401).send({ message: "Invalid token" });
+  }
+});
+
+
+app.get("/useUpdateTeam", (req, res) => {
+ 
+  const token = req.headers["x-access-token"];
+  if (!token) {
+    return res.status(401).send({ message: "No token provided" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.APISECRET);
+    console.log("Received a GET request from Strapi server");
+    FindTeams.FindTeams();
+    res.send({ message: "Processing Team Details" });
   } catch (error) {
     return res.status(401).send({ message: "Invalid token" });
   }
