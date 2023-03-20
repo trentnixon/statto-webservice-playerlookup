@@ -9,7 +9,7 @@ const Update = async (TEAMS) => {
 
 module.exports = {
   FindTeams: async () => {
-    console.log("RUN THE FindTeams");
+    console.log("RUNNING TEAM UPDATER");
     const apiResponse = await fetcher("teams");
     if (apiResponse.length > 0) {
       Update(apiResponse);

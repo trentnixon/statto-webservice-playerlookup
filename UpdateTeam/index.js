@@ -33,9 +33,6 @@ function SCRAP() {
     const PATH_TeamProfile = "team-profile/t20/?teamid=";
     const FixtureURL = `${ScrapURL}${PATH_TeamProfile}${TEAM.attributes.TeamID}`;
 
-    console.log("Fetching ", FixtureURL);
-
-    //LOG(chalk.yellow(`Fetching Team Metadata ${TEAM.id}`) )
     return await request(FixtureURL, async (err, res, html) => {
       if (!err && res.statusCode == 200) {
         this.$ = cheerio.load(html);
@@ -66,10 +63,7 @@ function SCRAP() {
 
   this.UpdateStrapiTeam = async (OBJ, _ID) => {
     console.log(`Adding Team Metadata ${_ID}`);
-
-    const TeamUpdataed = await updater(`teams/${_ID}`, "PUT", { data: OBJ });
-    console.log(TeamUpdataed) 
-    //console.log(`Player ${PlayerUpdated.id} was updated `);
+    await updater(`teams/${_ID}`, "PUT", { data: OBJ });
     this.MovePointer();
   };
 }
