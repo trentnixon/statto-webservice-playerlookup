@@ -2,9 +2,9 @@ const Scraper = require("./UpdateTeam/index");
 const fetcher = require("./utils/Teamfetcher");
 
 const Update = async (TEAMS) => {
-  const UPDATETEAMS = new Scraper();
-  UPDATETEAMS.DATA = TEAMS;
-  UPDATETEAMS.StartLookup();
+  console.log("TEAMS LENGTH", TEAMS.length)
+  const UPDATETEAMS = new Scraper(TEAMS);
+  UPDATETEAMS.startLookup();
 };
 
 module.exports = {
@@ -16,3 +16,4 @@ module.exports = {
     }
   },
 };
+
