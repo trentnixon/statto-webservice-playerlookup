@@ -68,7 +68,7 @@ function SCRAP() {
     console.log(`Adding Team Metadata ${_ID}`);
 
     const TeamUpdataed = await updater(`teams/${_ID}`, "PUT", { data: OBJ });
-    console.log(TeamUpdataed)
+    console.log(TeamUpdataed) 
     //console.log(`Player ${PlayerUpdated.id} was updated `);
     this.MovePointer();
   };

@@ -14,7 +14,7 @@ const query = qs.stringify(
       },
     },
     pagination: {
-      pageSize: 25,
+      pageSize: 50,
     },
     sort: ["updatedAt:asc"],
   },
@@ -23,16 +23,11 @@ const query = qs.stringify(
   }
 );
 
-async function fetcher(PATH, method = "GET", body = {}) {
-  const APIURL =
-    process.env.NODE_ENV !== "development"
-      ? process.env.APIURL
-      : process.env.APIURL_DEV;
 
-  const BEARER =
-    process.env.NODE_ENV !== "development"
-      ? process.env.STRAPI
-      : process.env.STRAPILOCAL;
+
+async function fetcher(PATH, method = "GET", body = {}) {
+  const APIURL = process.env.APIURL;
+  const BEARER = process.env.STRAPI;
 
   // Add fetcher options
   const options = {
@@ -41,7 +36,7 @@ async function fetcher(PATH, method = "GET", body = {}) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${BEARER}`,
     },
-    body: JSON.stringify(body),
+    //body: JSON.stringify(body),
   };
 
   //. if POST or PUT then add a body

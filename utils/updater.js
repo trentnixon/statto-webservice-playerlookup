@@ -5,15 +5,8 @@ create a specific PUT fetch request.
 */
 
 async function updater(PATH, method = "PUT", body = {}) {
-  const APIURL =
-    process.env.NODE_ENV !== "development"
-      ? process.env.APIURL
-      : process.env.APIURL_DEV;
-
-  const BEARER =
-    process.env.NODE_ENV !== "development"
-      ? process.env.STRAPI
-      : process.env.STRAPILOCAL;
+  const APIURL = process.env.APIURL;
+  const BEARER = process.env.STRAPI;
 
   // Add fetcher options
   const options = {
