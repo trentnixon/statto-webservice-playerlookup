@@ -107,6 +107,8 @@ module.exports = {
     const FIXTUREINFO = await GetInfo(PlayerPath);
     const $Info = cheerio.load(FIXTUREINFO);
     const STRAPIOBJ = await CreatePlayerOBJ($Info);
+    
+    //console.log(STRAPIOBJ, _ID, _LMSID)
     updatePlayer(STRAPIOBJ, _ID, _LMSID);
   },
 };

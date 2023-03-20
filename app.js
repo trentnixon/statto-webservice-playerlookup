@@ -2,6 +2,8 @@ const express = require("express");
 const PlayerDetails = require("./FindPlayersToUpdate");
 const FindTeams = require("./FindTeamToUpdate");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 
@@ -40,6 +42,7 @@ app.get("/useUpdateTeam", (req, res) => {
   }
 });
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Webhook service running on port ${port}`);

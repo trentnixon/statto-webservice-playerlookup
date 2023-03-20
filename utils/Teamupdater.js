@@ -1,24 +1,26 @@
 const fetch = require("node-fetch");
-const dotenv = require("dotenv");
-const qs = require("qs");
-dotenv.config();
 
 /*
 create a specific PUT fetch request.
 */
 
 async function updater(PATH, method = "PUT", body = {}) {
-  let APIURL;
-  //players/:id
+  const APIURL =
+    process.env.NODE_ENV !== "development"
+      ? process.env.APIURL
+      : process.env.APIURL_DEV;
 
-  APIURL = process.env.APIURL;
+  const BEARER =
+    process.env.NODE_ENV !== "development"
+      ? process.env.STRAPI
+      : process.env.STRAPILOCAL;
 
   // Add fetcher options
   const options = {
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.STRAPI}`,
+      Authorization: `Bearer ${BEARER}`,
     },
     body: JSON.stringify(body),
   };

@@ -2,9 +2,7 @@ const PlayerCareerUpdate = require("./Query/index");
 const fetcher = require("./utils/fetcher");
 
 const Update = async (Players) => {
-
-    Players.map((player, i) => {
-  
+  Players.map((player, i) => {
     if (player === null) {
       console.log(`Player was NULL and void!!`);
     } else {
@@ -24,13 +22,14 @@ const Update = async (Players) => {
         console.log(player.PlayerID);
       });
     }
-  }); 
+  });
 };
 
 module.exports = {
   FindPlayers: async () => {
-    console.log("RUN THE Run")
-    const apiResponse = await fetcher('players');
+    console.log("Process Player Updates.");
+    const apiResponse = await fetcher("players");
+    console.log(apiResponse.length);
     Update(apiResponse);
   },
 };
