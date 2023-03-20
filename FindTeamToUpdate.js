@@ -1,8 +1,8 @@
-const SCRAP = require("./UpdateTeam/index");
+const Scraper = require("./UpdateTeam/index");
 const fetcher = require("./utils/Teamfetcher");
 
 const Update = async (TEAMS) => {
-  const UPDATETEAMS = new SCRAP();
+  const UPDATETEAMS = new Scraper();
   UPDATETEAMS.DATA = TEAMS;
   UPDATETEAMS.StartLookup();
 };

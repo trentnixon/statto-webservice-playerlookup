@@ -3,6 +3,73 @@ const cheerio = require("cheerio");
 const request = require("request");
 const updater = require("../utils/Teamupdater");
 
+class Scraper {
+  constructor() {
+    this.data = null;
+    this.pointer = 0;
+
+    this.selectors = {
+      parentSelector: "#team-profile-2021-basic-stats",
+      statBox: ".general-stat-box",
+    };
+  }
+
+  strReplace(str) {
+    return str.replace(" ", "_");
+  }
+
+  movePointer() {
+    if (this.pointer < this.data.length - 1) {
+      this.pointer++;
+      this.startLookup();
+    }
+  }
+
+  startLookup() {
+    this.fetchURL(this.data[this.pointer]);
+  }
+
+  async fetchURL(team) {
+    const scrapURL = "https://www.lastmanstands.com/";
+    const pathTeamProfile = "team-profile/t20/?teamid=";
+    const fixtureURL = `${scrapURL}${pathTeamProfile}${team.attributes.TeamID}`;
+
+    request(fixtureURL, async (err, res, html) => {
+      if (!err && res.statusCode === 200) {
+        const $ = cheerio.load(html);
+        await this.loopResults($(this.selectors.parentSelector), team);
+      }
+    });
+  }
+
+  loopResults(data, team) {
+    const $ = cheerio;
+    const meta = {};
+    data.children(this.selectors.statBox).each((i, el) => {
+      meta[this.strReplace($(el).find(".general-stat-box-top").text())] = $(el)
+        .find(".general-stat-box-bottom")
+        .text();
+    });
+    meta.LastUpdate = Math.floor(Date.now() / 1000).toString();
+    this.updateStrapiTeam(meta, team.id);
+  }
+
+  async updateStrapiTeam(obj, id) {
+    console.log(`Adding Team Metadata ${id}`);
+    await updater(`teams/${id}`, "PUT", { data: obj });
+    this.movePointer();
+  }
+}
+
+module.exports = Scraper;
+
+
+
+/* "use strict";
+const cheerio = require("cheerio");
+const request = require("request");
+const updater = require("../utils/Teamupdater");
+
 function SCRAP() {
   this.DATA;
   this.pointer = 0;
@@ -17,7 +84,7 @@ function SCRAP() {
   };
   this.MovePointer = () => {
     if (this.pointer === this.DATA.length - 1) {
-      this.CALLBACK();
+      //this.CALLBACK();
     } else {
       this.pointer++;
       this.StartLookup();
@@ -69,3 +136,4 @@ function SCRAP() {
 }
 
 module.exports = SCRAP;
+ */
